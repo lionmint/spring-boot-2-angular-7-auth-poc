@@ -1,0 +1,24 @@
+<section class="mat-typography">
+  <div class="desktop-container" [class.is-mobile]="mobileQuery.matches">
+    <mat-toolbar class="nav-toolbar toolbar-text">
+        <img [routerLink]="['']" alt="LionMint Logo" src="https://www.lionmint.com/wp-content/uploads/2017/05/LionMint-Green-White-Transparent-Background-100-127x37.png">
+        <h1 class="app-name"> {{title}} </h1>
+        <div class="menu-login">
+          <button mat-button [routerLink]="['/login']">Login</button>
+          <button mat-button [routerLink]="['/signup']">Sign up</button>
+        </div>
+    </mat-toolbar>
+
+    <mat-drawer-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-drawer mode="side" opened>
+        <app-menu></app-menu>
+      </mat-drawer>
+      <mat-drawer-content>
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
+  <div class="bottom" [class.bottom-is-mobile]="mobileQuery.matches">
+      LionMint GmbH - c/o WeWork, Taunusanlage 8 - Frankfurt am Main Germany - E-Mail info@lionmint.com
+  </div>
+</section>

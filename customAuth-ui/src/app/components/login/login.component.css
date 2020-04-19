@@ -1,0 +1,21 @@
+.menu-input {
+  display: block;
+}
+
+.cardButtons {
+  width: 100%;
+}
+
+.margin-right {
+  margin-right: 15px;
+}
+
+.card-position {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 40%;
+  margin-right: 30%;
+}
