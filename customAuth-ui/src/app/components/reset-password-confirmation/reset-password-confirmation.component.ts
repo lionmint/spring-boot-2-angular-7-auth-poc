@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomAuthService} from '../../services/custom-auth.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-reset-password-confirmation',
@@ -8,12 +9,13 @@ import {CustomAuthService} from '../../services/custom-auth.service';
 })
 export class ResetPasswordConfirmationComponent implements OnInit {
 
-      constructor(private customAuthService: CustomAuthService) { }
+      constructor(private customAuthService: CustomAuthService, private authService: AuthService) { }
 
       message;
 
       ngOnInit() {
         this.message = "Your password has been changed. You can login now.";
         this.customAuthService.clearStorage();
+        this.authService.signOut();
       }
     }

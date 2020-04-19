@@ -5,6 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatToolbarModule, MatSidenavModule, MatInputModule, MatListModule, MatTableModule, MatCardModule} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider} from "angularx-social-login";
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -22,7 +24,23 @@ import { ResetPasswordConfirmationComponent } from './components/reset-password-
 import {CustomAuthService} from './services/custom-auth.service';
 import {AuthGuard} from './services/auth.guard';
 import {LoginService} from './services/login.service';
+import {SocialLoginService} from './services/social-login.service';
 import {PasswordchangeService} from './services/passwordchange.service';
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("832753580329-b74rbtrnkdktirplja4ccctq63fope5b.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("2845164388842734")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -51,13 +69,19 @@ import {PasswordchangeService} from './services/passwordchange.service';
     MatCardModule,
     MatTableModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
   ],
   providers: [
     CustomAuthService,
     AuthGuard,
     LoginService,
-    PasswordchangeService
+    SocialLoginService,
+    PasswordchangeService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

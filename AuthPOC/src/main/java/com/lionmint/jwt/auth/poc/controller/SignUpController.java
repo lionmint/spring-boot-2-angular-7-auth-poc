@@ -23,6 +23,9 @@ public class SignUpController {
 
 	private static Logger logger = LoggerFactory.getLogger(SignUpController.class);
 
+	@Value(value = "${google.clientId}")
+	private String googleClientId;
+	
 	@Value(value = "${sendgrid.api.key}")
 	private String sendgridKey;
 
@@ -55,9 +58,12 @@ public class SignUpController {
 			userRepository.save(user);
 
 			user = userRepository.findOneByEmailIgnoreCase(user.getEmail()).get();
+
+			final String jwts = Cryptographer.encryptorHS256(this.googleClientId, Long.toString(user.getId()));
+		    logger.info("Email: " + jwts);
 		    
 			// Send authroization email with endpoint link userIsAuthorized using user.getId
-			MailService.SendRegistrationConfirmationMail(Long.toString(user.getId()), user.getEmail(), sendgridKey, angular_address);
+			MailService.SendRegistrationConfirmationMail(jwts, user.getEmail(), sendgridKey, angular_address);
 			return true;
 		}else
 		{
@@ -67,8 +73,11 @@ public class SignUpController {
 	
 	@RequestMapping(value = "/authorize/{userId}", method = RequestMethod.GET)
 	public boolean userIsAuthorized(@PathVariable("userId") String userId) {
+		
+		final String id = Cryptographer.decryptorHS256(this.googleClientId, userId);
+	    logger.info("Id: " + id);
 	    
-		UserEntity user = userRepository.findById(Long.parseLong(userId)).get();
+		UserEntity user = userRepository.findById(Long.parseLong(id)).get();
 		user.setAuthorized(true);
 		userRepository.save(user);
 		return true;

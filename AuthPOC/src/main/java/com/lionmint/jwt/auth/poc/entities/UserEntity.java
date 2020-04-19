@@ -28,6 +28,8 @@ public class UserEntity {
 	private String role;
 	
 	private boolean isAuthorized;
+	private boolean isGoogleAuthroized;
+	private boolean isFacebookAuthorized;
 	
 	public boolean isAuthorized() {
 		return isAuthorized;
@@ -85,4 +87,19 @@ public class UserEntity {
 		this.role = role;
 	}
 
+	public boolean isGoogleAuthroized() {
+		return isGoogleAuthroized;
+	}
+
+	public void setGoogleAuthroized(boolean isGoogleAuthroized) {
+		this.isGoogleAuthroized = isGoogleAuthroized;
+	}
+
+	public boolean isFacebookAuthorized() {
+		return isFacebookAuthorized;
+	}
+
+	public void setFacebookAuthorized(boolean isFacebookAuthorized) {
+		this.isFacebookAuthorized = isFacebookAuthorized;
+	}
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import {CustomAuthService} from '../services/custom-auth.service';
+import { AuthService } from 'angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private customAuthService: CustomAuthService){
+  constructor(private customAuthService: CustomAuthService, private authService: AuthService){
     }
 
   canActivate(){
@@ -16,6 +17,7 @@ export class AuthGuard implements CanActivate {
     }else
     {
       this.customAuthService.clearStorage();
+      this.authService.signOut();
     }
   }
 }

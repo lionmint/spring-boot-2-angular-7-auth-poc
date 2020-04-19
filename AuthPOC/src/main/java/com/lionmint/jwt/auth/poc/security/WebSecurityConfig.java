@@ -27,7 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			"/api/signup", 
 			"/api/signup/**",
 			"/api/signup/authorzie/**",
-			"/api/login"
+			"/api/login",
+			"/api/social/google",
+			"/api/social/facebook"
     };
 
 	@Resource(name = "userService")

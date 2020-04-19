@@ -25,7 +25,7 @@ public class LogInControllerIntegrationTest {
 	public void testSuccessfulLogin()
 	{
 		UserEntity user = new UserEntity();
-		user.setEmail("info@lionmint.com");
+		user.setEmail("Firstname.Lastname@lionmint.com");
 		user.setPassword("1234567890");
 		user.setFirstName("Firstname");
 		user.setLastName("Lastname");
@@ -51,7 +51,7 @@ public class LogInControllerIntegrationTest {
 	public void testUnsuccessfulLogin()
 	{
 		UserEntity user = new UserEntity();
-		user.setEmail("info@lionmint.com");
+		user.setEmail("Firstname.Lastname@lionmint.com");
 		user.setPassword("1234567890");
 		user.setFirstName("Firstname");
 		user.setLastName("Lastname");

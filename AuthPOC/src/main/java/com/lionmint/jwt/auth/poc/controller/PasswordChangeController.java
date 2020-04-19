@@ -23,6 +23,9 @@ public class PasswordChangeController {
 
 	private static Logger logger = LoggerFactory.getLogger(SignUpController.class);
 
+	@Value(value = "${google.clientId}")
+	private String googleClientId;
+	
 	@Value(value = "${sendgrid.api.key}")
 	private String sendgridKey;
 
@@ -35,7 +38,10 @@ public class PasswordChangeController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public void changePassword(@RequestBody UserEntity user) {
 		
-		final Optional<UserEntity> loginUser = userRepository.findOneByEmailIgnoreCase(user.getEmail());
+		String email = Cryptographer.decryptorHS256(this.googleClientId, user.getEmail());
+	    logger.info("Email: " + email);
+		
+		final Optional<UserEntity> loginUser = userRepository.findOneByEmailIgnoreCase(email);
 		if(loginUser.isPresent())
 		{
 			final String temp = user.getPassword();
@@ -49,8 +55,11 @@ public class PasswordChangeController {
 	public void requestPasswordChange(@PathVariable("email") String email) {		
 		final Optional<UserEntity> userCall = userRepository.findOneByEmailIgnoreCase(email);
 		if(userCall.isPresent())
-		{   
-			MailService.SendPasswordChangeConfirmationMail(email, sendgridKey, angular_address, email);
+		{
+			final String jwts = Cryptographer.encryptorHS256(this.googleClientId, email);
+		    logger.info("Email: " + jwts);
+		    
+			MailService.SendPasswordChangeConfirmationMail(email, sendgridKey, angular_address, jwts);
 		}	
 	}
 }

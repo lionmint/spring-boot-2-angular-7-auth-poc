@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CustomAuthService} from '../../services/custom-auth.service';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-menu',
@@ -8,7 +9,7 @@ import {CustomAuthService} from '../../services/custom-auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private customAuthService: CustomAuthService) { }
+  constructor(private customAuthService: CustomAuthService, private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -16,5 +17,6 @@ export class MenuComponent implements OnInit {
   public logout()
   {
     this.customAuthService.logout();
+    this.authService.signOut();
   }
 }

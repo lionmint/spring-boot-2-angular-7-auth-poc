@@ -35,6 +35,10 @@ public class CorsConfig{
         			.allowedOrigins(local_dev, local_prod, deploy_dev);
             	registry.addMapping("/api/signup/**")
         			.allowedOrigins(local_dev, local_prod, deploy_dev);
+            	registry.addMapping("/api/social/google")
+        			.allowedOrigins(local_dev, local_prod, deploy_dev);
+            	registry.addMapping("/api/social/facebook")
+        			.allowedOrigins(local_dev, local_prod, deploy_dev);
             }
         };
     }

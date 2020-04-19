@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
+import { SocialLoginService } from './social-login.service';
 import {AuthorizationEntity} from '../models/authorizationEntity.model';
 
 @Injectable({
@@ -8,10 +9,30 @@ import {AuthorizationEntity} from '../models/authorizationEntity.model';
 })
 export class CustomAuthService {
 
-  constructor(public router: Router, private loginService: LoginService) { }
+  constructor(public router: Router, private loginService: LoginService, private socialLoginService: SocialLoginService) { }
 
   login(user): void {
     this.loginService.logIn(user).subscribe(
+      data => {
+        console.log("Response: " + JSON.stringify(data));
+        this.setAuthroization(data);
+      },
+      err => {console.log(err)}
+    );
+  }
+
+  socialLoginGoogle(idToken): void {
+    this.socialLoginService.loginGoogle(idToken).subscribe(
+      data => {
+        console.log("Response: " + JSON.stringify(data));
+        this.setAuthroization(data);
+      },
+      err => {console.log(err)}
+    );
+  }
+
+  socialLoginFacebook(user): void {
+    this.socialLoginService.loginFacebook(user).subscribe(
       data => {
         console.log("Response: " + JSON.stringify(data));
         this.setAuthroization(data);

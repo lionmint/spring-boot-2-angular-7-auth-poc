@@ -4,6 +4,10 @@
       <mat-card-title> Login </mat-card-title>
       <mat-card-subtitle> You do not have an account yet?
         <button mat-button color=primary [routerLink]="['/signup']">Sign up</button>
+        <p>
+        <button mat-flat-button class="google" (click)="signInWithGoogle()">Google</button>
+        <p>
+        <button mat-flat-button class="facebook" (click)="signInWithFB()">Facebook</button>
       </mat-card-subtitle>
     </mat-card-header>
       <form class="menu-login" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
